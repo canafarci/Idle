@@ -8,20 +8,25 @@ public class Mover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotateSpeed;
-    private Vector2 _input;
-    [Inject] private CharacterController _controller;
+    private Vector2 _moveInput;
+    [Inject] private readonly CharacterController _controller;
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _input = context.ReadValue<Vector2>();
+        _moveInput = context.ReadValue<Vector2>();
     }
 
     private void Update()
     {
-        if (_input == Vector2.zero) return; //return if there is no input
+        Move();
+    }
+
+    private void Move()
+    {
+        if (_moveInput == Vector2.zero) return; //return if there is no input
 
         //convert to a vector3
-        Vector3 moveDir = new Vector3(_input.x, 0f, _input.y);
+        Vector3 moveDir = new Vector3(_moveInput.x, 0f, _moveInput.y);
         //calcutate move distance
         float moveDistance = _moveSpeed * Time.deltaTime;
         //rotate
