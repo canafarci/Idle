@@ -8,5 +8,6 @@ public class GameInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<CharacterController>().FromComponentInHierarchy().AsTransient();
+        Container.Bind<IStacker>().FromComponentInHierarchy().AsTransient();
     }
 }
